@@ -24,7 +24,7 @@
 
 #include <sourcemod>
 
-#include "include/param_test_stocks.inc"
+#include "include/util/param_testing.inc"
 #include "include/zm/inc/struct/extension.inc"
 #include "include/zm/inc/zm_const.inc"
 #include "include/zm/inc/zm_stocks.inc"
@@ -78,7 +78,7 @@ public int Native_GetExtensions(Handle plugin, numParams) {
   ValidateParamsEqual(0, numParams);
   if (g_aExts == null) {
     // TODO: Return reference to immutable empty ArrayList
-    return CreateArray();
+    return view_as<int>(CreateArray());
   }
 
   return view_as<int>(g_aExts.Clone());
