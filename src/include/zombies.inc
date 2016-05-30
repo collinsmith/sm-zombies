@@ -58,4 +58,4 @@ native int ZM_GetNumExtensions();
  * @return {@code true} if the specified value is considered a valid Extension
  *         Handle, otherwise {@code false}
  */
-native bool ZM_IsValidExtension(any:i);
+native bool ZM_IsValidExtension(any i);

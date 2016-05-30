@@ -1,3 +1,4 @@
+#pragma newdecls required
 #define TESTSUITE
 
 #include <sourcemod>
@@ -66,7 +67,7 @@ public Action Command_TestGetExtensions(int args) {
       id != -1);
   AssertTrue("Testing if ZM_GetExtensions Handle to this plugin is correct",
       thisPlugin == view_as<Handle>(exts.Get(id)));
-  ZM_Extension ext2 = ZM_Extension:(id+1);
+  ZM_Extension ext2 = view_as<ZM_Extension>(id+1);
   AssertTrue(
       "Testing if ZM_GetExtensions Handle under this plugin is equal to \
        the registered extension",

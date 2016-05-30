@@ -7,54 +7,54 @@
 
 #if defined TESTSUITE
   #include "../include/util/math.inc"
-  #include "../include/util/string.inc"
+  #include "../include/util/strings.inc"
 #else
   #include "include/util/math.inc"
-  #include "include/util/string.inc"
+  #include "include/util/strings.inc"
 #endif
 
 /*******************************************************************************
  * STOCKS
  ******************************************************************************/
 
-stock bool ParamsEqual(int expected, int actual) {
+stock bool Params_Equal(int expected, int actual) {
   return expected == actual;
 }
 
-stock bool ParamsLessThan(int expected, int actual) {
+stock bool Params_LessThan(int expected, int actual) {
   return actual < expected;
 }
 
-stock bool ParamsLessEqual(int expected, int actual) {
+stock bool Params_LessEqual(int expected, int actual) {
   return actual <= expected;
 }
 
-stock bool ParamsGreaterThan(int expected, int actual) {
+stock bool Params_GreaterThan(int expected, int actual) {
   return expected < actual;
 }
 
-stock bool ParamsGreaterEqual(int expected, int actual) {
+stock bool Params_GreaterEqual(int expected, int actual) {
   return expected <= actual;
 }
 
-stock ValidateParamsEqual(int expected, int actual) {
-  if (!ParamsEqual(expected, actual)) {
+stock void Params_ValidateEqual(int expected, int actual) {
+  if (!Params_Equal(expected, actual)) {
     ThrowNativeError(SP_ERROR_NATIVE,
         "Invalid number of params: Expected %d, actual %d",
         expected, actual);
   }
 }
 
-stock ValidateParamsLessThan(int expected, int actual) {
-  if (!ParamsLessThan(expected, actual)) {
+stock void Params_ValidateLessThan(int expected, int actual) {
+  if (!Params_LessThan(expected, actual)) {
     ThrowNativeError(SP_ERROR_NATIVE,
         "Invalid number of params: Expected less than %d, actual %d",
         expected, actual);
   }
 }
 
-stock ValidateParamsLessEqual(int expected, int actual) {
-  if (!ParamsLessEqual(expected, actual)) {
+stock void Params_ValidateLessEqual(int expected, int actual) {
+  if (!Params_LessEqual(expected, actual)) {
     ThrowNativeError(SP_ERROR_NATIVE,
         "Invalid number of params: Expected less than or equal to %d, \
          actual %d",
@@ -62,16 +62,16 @@ stock ValidateParamsLessEqual(int expected, int actual) {
   }
 }
 
-stock ValidateParamsGreaterThan(int expected, int actual) {
-  if (!ParamsGreaterThan(expected, actual)) {
+stock void Params_ValidateGreaterThan(int expected, int actual) {
+  if (!Params_GreaterThan(expected, actual)) {
     ThrowNativeError(SP_ERROR_NATIVE,
         "Invalid number of params: Expected greater than %d, actual %d",
         expected, actual);
   }
 }
 
-stock ValidateParamsGreaterEqual(int expected, int actual) {
-  if (!ParamsGreaterEqual(expected, actual)) {
+stock void Params_ValidateGreaterEqual(int expected, int actual) {
+  if (!Params_GreaterEqual(expected, actual)) {
     ThrowNativeError(SP_ERROR_NATIVE,
         "Invalid number of params: Expected greater than or equal to %d, \
          actual %d",
@@ -79,7 +79,7 @@ stock ValidateParamsGreaterEqual(int expected, int actual) {
   }
 }
 
-stock ValidateParamsOneOf(int[] set, int sizeofSet, int actual) {
+stock void Params_ValidateOneOf(int[] set, int sizeofSet, int actual) {
   int id = Array_FindValue(set, sizeof set, actual);
   if (id == -1) {
     char tmp[64];
@@ -90,13 +90,13 @@ stock ValidateParamsOneOf(int[] set, int sizeofSet, int actual) {
   }
 }
 
-stock ValidateTrue(bool condition, const char[] message) {
+stock void Params_ValidateTrue(bool condition, const char[] message) {
   if (!condition) {
     ThrowNativeError(SP_ERROR_NATIVE, message);
   }
 }
 
-stock ValidateFalse(bool condition, const char[] message) {
+stock void Params_ValidateFalse(bool condition, const char[] message) {
   if (condition) {
     ThrowNativeError(SP_ERROR_NATIVE, message);
   }

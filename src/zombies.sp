@@ -24,7 +24,7 @@
 
 #include <sourcemod>
 
-#include "include/util/param_testing.inc"
+#include "include/util/params.inc"
 #include "include/util/paths.inc"
 #include "include/zm/inc/struct/extension.inc"
 #include "include/zm/inc/zm_const.inc"
@@ -47,7 +47,7 @@ public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
 
   char tempPath[PLATFORM_MAX_PATH];
   ZM_GetLogFile(tempPath, sizeof tempPath - 1);
-  Path_FixPathAndMkdir(tempPath, sizeof tempPath);
+  Paths_FixPathAndMkdir(tempPath, sizeof tempPath);
 
   LogToFile(tempPath, "Launching %s v%s", ZM_MOD_NAME, buildId);
 
@@ -69,24 +69,24 @@ public void OnPluginEnd() {
   delete g_aExts;
 }
 
-public int Native_RegisterExtension(Handle plugin, numParams) {
-  ValidateParamsEqual(0, numParams);
+public int Native_RegisterExtension(Handle plugin, int numParams) {
+  Params_ValidateEqual(0, numParams);
   if (g_aExts == null) {
     g_aExts = CreateArray(.startsize=16);
   } else {
     int id = g_aExts.FindValue(plugin);
     if (id != -1) {
-      ZM_Extension ext = ZM_Extension:(id+1);
-      return any:ext;
+      ZM_Extension ext = view_as<ZM_Extension>(id+1);
+      return view_as<int>(ext);
     }
   }
 
-  ZM_Extension ext = ZM_Extension:(g_aExts.Push(plugin)+1);
-  return any:ext;
+  ZM_Extension ext = view_as<ZM_Extension>(g_aExts.Push(plugin)+1);
+  return view_as<int>(ext);
 }
 
-public int Native_GetExtensions(Handle plugin, numParams) {
-  ValidateParamsEqual(0, numParams);
+public int Native_GetExtensions(Handle plugin, int numParams) {
+  Params_ValidateEqual(0, numParams);
   if (g_aExts == null) {
     // TODO: Return reference to immutable empty ArrayList
     return view_as<int>(CreateArray());
@@ -95,8 +95,8 @@ public int Native_GetExtensions(Handle plugin, numParams) {
   return view_as<int>(g_aExts.Clone());
 }
 
-public int Native_GetNumExtensions(Handle plugin, numParams) {
-  ValidateParamsEqual(0, numParams);
+public int Native_GetNumExtensions(Handle plugin, int numParams) {
+  Params_ValidateEqual(0, numParams);
   if (g_aExts == null) {
     return 0;
   }
@@ -104,8 +104,8 @@ public int Native_GetNumExtensions(Handle plugin, numParams) {
   return g_aExts.Length;
 }
 
-public int Native_IsValidExtension(Handle plugin, numParams) {
-  ValidateParamsEqual(1, numParams);
+public int Native_IsValidExtension(Handle plugin, int numParams) {
+  Params_ValidateEqual(1, numParams);
   if (g_aExts == null) {
     return false;
   }

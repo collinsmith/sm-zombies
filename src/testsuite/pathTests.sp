@@ -1,3 +1,4 @@
+#pragma newdecls required
 #define TESTSUITE
 
 #include <sourcemod>
@@ -17,7 +18,7 @@ public void OnPluginStart() {
   RegServerCmd("tests", Command_TestAll);
   RegServerCmd("tests.util", Command_TestAll);
   RegServerCmd("tests.util.paths", Command_TestAll);
-  RegServerCmd("tests.util.paths.Path_FixPath",
+  RegServerCmd("tests.util.paths.Paths_FixPath",
       Command_Test_FixPath);
 }
 
@@ -52,6 +53,6 @@ void Test_FixPath(char[] path, int len, const char[] solution) {
   char text[64];
   FormatEx(text, sizeof text - 1, "Fixed path matches %s", solution);
 
-  Path_FixPath(path, len);
+  Paths_FixPath(path, len);
   AssertTrue(text, StrEqual(path, solution));
 }

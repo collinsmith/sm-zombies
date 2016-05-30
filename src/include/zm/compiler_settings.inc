@@ -8,6 +8,8 @@
  */
 #pragma semicolon 1
 
+#pragma newdecls required
+
 /**
  * Enables whether or not to compile in debug mode. Compiling in debug mode will
  * enable many additional commands and log messages that are not needed for
