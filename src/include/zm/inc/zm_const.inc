@@ -11,7 +11,7 @@
  * Defines the mod name of Zombies. This value is used in places before the lang
  * is registered.
  */
-#define ZM_MOD_NAME "Zombie"
+#define ZM_MOD_NAME ZM_NAME
 
 /**
  * String representation for the name of Zombies
