@@ -28,6 +28,7 @@
 #include "include/zm/inc/struct/extension.inc"
 #include "include/zm/inc/zm_const.inc"
 #include "include/zm/inc/zm_stocks.inc"
+#include "include/zm/inc/zm_version.inc"
 
 public Plugin pluginInfo = {
   name = ZM_NAME,
@@ -40,6 +41,16 @@ public Plugin pluginInfo = {
 static ArrayList g_aExts = null;
 
 public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
+  char buildId[32];
+  ZM_GetBuildId(buildId, sizeof buildId - 1);
+
+  char tempPath[PLATFORM_MAX_PATH];
+  ZM_GetLogsDir(tempPath, sizeof tempPath - 1);
+  CreateDirectory(tempPath, 448);
+
+  ZM_GetLogFile(tempPath, sizeof tempPath - 1);
+  LogToFile(tempPath, "Launching %s v%s", ZM_MOD_NAME, buildId);
+
   CreateNatives();
   return APLRes_Success;
 }

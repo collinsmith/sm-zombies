@@ -22,3 +22,5 @@ stock const char ZM_NAME[] = "Zombies";
  * String representation for the short name of Zombies
  */
 stock const char ZM_NAME_SHORT[] = "ZM";
+
+#define ZM_LOGS_DIR "zombies"
