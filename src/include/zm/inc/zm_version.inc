@@ -4,14 +4,9 @@
 #define _zm_version_included
 
 /**
- * Defines the current version of Zombies represented as an integer.
+ * Defines the version id of Zombies represented as an integer.
  */
 #define ZM_VERSION 1
-
-/**
- * Defines the version of Zombies
- */
-#define ZM_VERSION 1.0.0
 
 /**
  * String representation of the version of Zombies. This should match the value
