@@ -25,6 +25,7 @@
 #include <sourcemod>
 
 #include "include/util/param_testing.inc"
+#include "include/util/paths.inc"
 #include "include/zm/inc/struct/extension.inc"
 #include "include/zm/inc/zm_const.inc"
 #include "include/zm/inc/zm_stocks.inc"
@@ -45,10 +46,9 @@ public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
   ZM_GetBuildId(buildId, sizeof buildId - 1);
 
   char tempPath[PLATFORM_MAX_PATH];
-  ZM_GetLogsDir(tempPath, sizeof tempPath - 1);
-  CreateDirectory(tempPath, 448);
-
   ZM_GetLogFile(tempPath, sizeof tempPath - 1);
+  Path_FixPathAndMkdir(tempPath, sizeof tempPath);
+
   LogToFile(tempPath, "Launching %s v%s", ZM_MOD_NAME, buildId);
 
   CreateNatives();
