@@ -32,7 +32,7 @@ stock int Path_FixPath(char[] path, int len) {
   return i-1;
 }
 
-stock Path_FixPathAndMkdir(char[] path, int len, int mode = 448) {
+stock int Path_FixPathAndMkdir(char[] path, int len, int mode = 448) {
   int i;
   for (i = 0; i < len && path[i] != EOS; i++) {
     if (Path_FixPathSeparator(path, i)) {
