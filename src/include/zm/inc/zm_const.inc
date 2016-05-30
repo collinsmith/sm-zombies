@@ -8,17 +8,6 @@
  ******************************************************************************/
 
 /**
- * Defines the version of Zombies
- */
-#define ZM_VERSION 1.0.0
-
-/**
- * String representation of the version of Zombies. This should match the value
- * of the definition.
- */
-stock const char ZM_VERSION_STRING[] = "1.0.0";
-
-/**
  * String representation for the name of Zombies
  */
 stock const char ZM_NAME[] = "Zombies";
