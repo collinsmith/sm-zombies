@@ -50,6 +50,7 @@ public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
   Paths_FixPathAndMkdir(tempPath, sizeof tempPath);
 
   LogToFile(tempPath, "Launching %s v%s", ZM_MOD_NAME, buildId);
+  // testing repo name change
 
   CreateNatives();
   return APLRes_Success;
