@@ -8,6 +8,14 @@
  */
 #pragma semicolon 1
 
+/**
+ * Zombies uses \ as ctrlchar
+ */
+#pragma ctrlchar '\\'
+
+/**
+ * Zombies enforces SourcePawn 1.7+ spec
+ */
 #pragma newdecls required
 
 /**

@@ -24,6 +24,8 @@
 
 #include <sourcemod>
 
+#include "include/logger.inc"
+
 #include "include/util/params.inc"
 #include "include/util/paths.inc"
 #include "include/zm/inc/struct/extension.inc"
@@ -39,19 +41,10 @@ public Plugin pluginInfo = {
   url = "http://www.sourcemod.net/"
 };
 
+static Logger g_Logger = null;
 static ArrayList g_aExts = null;
 
 public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
-  char buildId[32];
-  ZM_GetBuildId(buildId, sizeof buildId - 1);
-
-  char tempPath[PLATFORM_MAX_PATH];
-  ZM_GetLogFile(tempPath, sizeof tempPath - 1);
-  Paths_FixPathAndMkdir(tempPath, sizeof tempPath);
-
-  LogToFile(tempPath, "Launching %s v%s", ZM_MOD_NAME, buildId);
-  // testing repo name change
-
   CreateNatives();
   return APLRes_Success;
 }
@@ -64,6 +57,20 @@ void CreateNatives() {
 }
 
 public void OnPluginStart() {
+  char buildId[32];
+  ZM_GetBuildId(buildId, sizeof buildId - 1);
+
+  g_Logger = new Logger();
+#if defined ZM_DEBUG_MODE
+  g_Logger.SetVerbosity(Severity_None);
+#endif
+
+  char pathFormat[PLATFORM_MAX_PATH];
+  strcopy(pathFormat, sizeof pathFormat - 1, ZM_LOGS_DIR);
+  g_Logger.SetPathFormat(pathFormat);
+  g_Logger.SetMessageFormat("[%5v] [%t] %p - %s");
+
+  g_Logger.Log(Severity_Info, "Launching %s v%s", ZM_MOD_NAME, buildId);
 }
 
 public void OnPluginEnd() {
