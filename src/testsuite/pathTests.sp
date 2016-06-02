@@ -6,7 +6,7 @@
 
 #include "../include/util/paths.inc"
 
-public Plugin pluginInfo = {
+public Plugin myinfo = {
   name = "pathTests",
   author = "csmith",
   description = "Tests for include/util/paths.inc",

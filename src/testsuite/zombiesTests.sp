@@ -6,7 +6,7 @@
 
 #include "../include/zombies.inc"
 
-public Plugin pluginInfo = {
+public Plugin myinfo = {
     name = "zombiesTests",
     author = "Tirant",
     description = "Tests for zombies.sp",

@@ -7,10 +7,14 @@
   #include "../include/zm/inc/struct/extension.inc"
   #include "../include/zm/inc/zm_const.inc"
   #include "../include/zm/inc/zm_stocks.inc"
+  #include "../include/zm/inc/zm_version.inc"
+  #include "../include/logger.inc"
 #else
   #include "include/zm/inc/struct/extension.inc"
   #include "include/zm/inc/zm_const.inc"
   #include "include/zm/inc/zm_stocks.inc"
+  #include "include/zm/inc/zm_version.inc"
+  #include "include/logger.inc"
 #endif
 
 /*******************************************************************************
@@ -22,6 +26,8 @@ forward void ZM_OnZombiesInit();
 /*******************************************************************************
  * NATIVES
  ******************************************************************************/
+
+native Logger ZM_GetLogger();
 
 /**
  * Registers the calling plugin as an extension of Zombies, and thus, a user of

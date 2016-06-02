@@ -6,7 +6,7 @@
 
 #include "../include/util/strings.inc"
 
-public Plugin pluginInfo = {
+public Plugin myinfo = {
   name = "stringTests",
   author = "Tirant",
   description = "Tests for include/util/string.inc",

@@ -33,7 +33,7 @@
 #include "include/zm/inc/zm_stocks.inc"
 #include "include/zm/inc/zm_version.inc"
 
-public Plugin pluginInfo = {
+public Plugin myinfo = {
   name = ZM_NAME,
   author = "Tirant",
   description = "General Lightweight Zombie Mod API",
@@ -58,6 +58,7 @@ void CreateForwards() {
 
 void CreateNatives() {
   RegPluginLibrary("zombies");
+  CreateNative("ZM_GetLogger", Native_GetLogger);
   CreateNative("ZM_RegisterExtension", Native_RegisterExtension);
   CreateNative("ZM_GetExtensions", Native_GetExtensions);
   CreateNative("ZM_GetNumExtensions", Native_GetNumExtensions);
@@ -80,12 +81,20 @@ public void OnPluginStart() {
 
   g_Logger.Log(Severity_Info, "Launching %s v%s", ZM_MOD_NAME, buildId);
 
+  g_Logger.Log(Severity_Debug, "Forward ZM_OnZombiesInit=%d", g_fwOnZombiesInit);
+
+  g_Logger.Log(Severity_Debug, "Calling ZM_OnZombiesInit");
   Call_StartForward(g_fwOnZombiesInit);
   Call_Finish();
 }
 
 public void OnPluginEnd() {
   delete g_aExts;
+}
+
+public int Native_GetLogger(Handle plugin, int numParams) {
+  Params_ValidateEqual(0, numParams);
+  return view_as<int>(g_Logger);
 }
 
 public int Native_RegisterExtension(Handle plugin, int numParams) {
@@ -100,6 +109,9 @@ public int Native_RegisterExtension(Handle plugin, int numParams) {
     }
   }
 
+  char pluginName[32];
+  GetPluginInfo(plugin, PlInfo_Name, pluginName, sizeof pluginName - 1);
+  g_Logger.Log(Severity_Debug, "Registering extension: %s", pluginName);
   ZM_Extension ext = view_as<ZM_Extension>(g_aExts.Push(plugin)+1);
   return view_as<int>(ext);
 }

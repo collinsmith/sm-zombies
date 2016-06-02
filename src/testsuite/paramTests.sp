@@ -6,7 +6,7 @@
 
 #include "../include/util/params.inc"
 
-public Plugin pluginInfo = {
+public Plugin myinfo = {
   name = "paramValidationTests",
   author = "Tirant",
   description = "Tests for include/util/param_testing.inc",
