@@ -44,12 +44,20 @@ public Plugin pluginInfo = {
 static Logger g_Logger = null;
 static ArrayList g_aExts = null;
 
+static Handle g_fwOnZombiesInit = null;
+
 public APLRes AskPluginLoad2(Handle h, bool isLate, char[] err, int errLen) {
+  CreateForwards();
   CreateNatives();
   return APLRes_Success;
 }
 
+void CreateForwards() {
+  g_fwOnZombiesInit = CreateGlobalForward("ZM_OnZombiesInit", ET_Ignore);
+}
+
 void CreateNatives() {
+  RegPluginLibrary("zombies");
   CreateNative("ZM_RegisterExtension", Native_RegisterExtension);
   CreateNative("ZM_GetExtensions", Native_GetExtensions);
   CreateNative("ZM_GetNumExtensions", Native_GetNumExtensions);
@@ -71,6 +79,9 @@ public void OnPluginStart() {
   g_Logger.SetMessageFormat("[%5v] [%t] %p - %s");
 
   g_Logger.Log(Severity_Info, "Launching %s v%s", ZM_MOD_NAME, buildId);
+
+  Call_StartForward(g_fwOnZombiesInit);
+  Call_Finish();
 }
 
 public void OnPluginEnd() {
